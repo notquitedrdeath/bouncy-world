@@ -1,0 +1,25 @@
+//
+//  ViewController.h
+//  Bouncy World
+//
+//  Created by Timothy Death on 25/03/13.
+//  Copyright (c) 2013 Timothy Death. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "chipmunk.h"
+#import <QuartzCore/QuartzCore.h>
+#import <CoreMotion/CoreMotion.h>
+#import "Debug.h"
+#import "UIColor+RandColor.h"
+
+@interface ViewController : UIViewController {
+    cpSpace * space;
+    CMMotionManager * motionManager;
+    CGPoint acceleratedGravity;
+    NSInteger ballCount;
+    CGPoint swipeStart;
+    cpVect diff;
+}
+
+@end
