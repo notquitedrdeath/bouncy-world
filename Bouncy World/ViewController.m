@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 #define GRAVITY 400.0f
-#define STEP_INTERVAL 1/60.0f
+#define STEP_INTERVAL 1/100.0f
 #define RADIUS 16.0f
 #define BLAST_RADIUS 20.0f       // possibly user-defined
 #define BUTTON_SPACE_OFFSET 62
