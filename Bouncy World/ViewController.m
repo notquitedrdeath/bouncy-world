@@ -11,7 +11,12 @@
 #define GRAVITY 400.0f
 #define STEP_INTERVAL 1/60.0f
 #define RADIUS 16.0f
+#define BLAST_RADIUS 20.0f       // possibly user-defined
 #define BUTTON_SPACE_OFFSET 62
+
+typedef struct LinearLine {
+	CGPoint a, b;
+} LinearLine;
 
 @interface ViewController ()
 
@@ -166,8 +171,32 @@ static void applyImpulse (cpShape * shape, void *data) {
     CALayer *layer = (__bridge CALayer *) shape->data;
     if(!layer)
         return;
+    
     ViewController * viewCont = (__bridge ViewController *) data;
-    cpBodyApplyImpulse(shape->body, viewCont->diff, cpvzero);
+    cpVect pulse = viewCont->diff;
+
+    if (BLAST_RADIUS > 0.0) {
+        // get linear line between swipe start and end
+        LinearLine line;
+        line.a = CGPointMake(viewCont->swipeStart.x, viewCont->swipeStart.y);
+        line.b = CGPointMake(viewCont->swipeEnd.x, viewCont->swipeEnd.y);
+
+        // get position of current ball and finds its distance from linear swipe line
+        CGPoint position = [[layer presentationLayer] frame].origin;
+        CGFloat distance = distanceFromPointToLine(position, line);
+    
+        // ensure distance is a number (!NaN)
+        if (distance == distance) {
+ 
+            // defines how the distance affects the current ball
+            CGFloat affect = BLAST_RADIUS / distance;
+            if (affect > 1.0)
+                affect = 1.0;
+
+            pulse = cpv(viewCont->diff.x * affect, viewCont->diff.y * affect);
+        }
+    }
+    cpBodyApplyImpulse(shape->body, pulse, cpvzero);
 }
 
 static void applyRandImpulse (cpShape * shape, void *data) {
@@ -175,7 +204,16 @@ static void applyRandImpulse (cpShape * shape, void *data) {
     if(!layer)
         return;
     cpBodyApplyImpulse(shape->body, cpv(arc4random() % 1000+1000, arc4random() % 1000 + 1000), cpvzero);
+}
 
+static CGFloat distanceFromPointToLine (CGPoint point, LinearLine line) {
+    // calculate slope and equation y = mx + b
+    CGFloat m = (line.b.y - line.a.y) / (line.b.x - line.a.x);
+    CGFloat b = line.a.y - m * line.a.x;
+   
+    // calculate distance
+    CGFloat distance = fabsf(point.y - m * point.x - b) / sqrtf(powf(m, 2.0) + 1);
+    return distance;
 }
 
 #pragma mark - User Interaction
@@ -201,7 +239,7 @@ static void applyRandImpulse (cpShape * shape, void *data) {
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch * touch = [touches anyObject];
-    CGPoint swipeEnd = [touch locationInView:self.view];
+    swipeEnd = [touch locationInView:self.view];
     diff = cpv((swipeStart.x - swipeEnd.x - (swipeStart.x - swipeEnd.x)*2)*5, (swipeStart.y - swipeEnd.y - (swipeStart.y - swipeEnd.y)*2)*5);
     cpSpaceEachShape(space, &applyImpulse, (__bridge void *) self);
 }
