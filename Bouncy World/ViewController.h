@@ -19,6 +19,7 @@
     CGPoint acceleratedGravity;
     NSInteger ballCount;
     CGPoint swipeStart;
+    CGPoint swipeEnd;
     cpVect diff;
 }
 
