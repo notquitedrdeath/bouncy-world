@@ -21,6 +21,8 @@
     CGPoint swipeStart;
     CGPoint swipeEnd;
     cpVect diff;
+    UIButton * plus, * minus, * refresh;
+    BOOL removeBall, removeAllBalls;
 }
 
 @end

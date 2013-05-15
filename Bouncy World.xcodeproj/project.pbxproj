@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C30A97EE1743231500C1AB50 /* RefreshSign.png in Resources */ = {isa = PBXBuildFile; fileRef = C30A97ED1743231500C1AB50 /* RefreshSign.png */; };
 		C31B6991173B4C30004C2444 /* UIColor+RandColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C31B6990173B4C30004C2444 /* UIColor+RandColor.m */; };
 		C334667017000B1300093F4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C334666F17000B1300093F4B /* UIKit.framework */; };
 		C334667217000B1300093F4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C334667117000B1300093F4B /* Foundation.framework */; };
@@ -22,9 +23,12 @@
 		C33466AE17000C6000093F4B /* libChipmunk-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C33466AD17000C6000093F4B /* libChipmunk-iPhone.a */; };
 		C33466B01700117600093F4B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C33466AF1700117600093F4B /* QuartzCore.framework */; };
 		C380B8A817014E900080AA32 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C380B8A717014E900080AA32 /* CoreMotion.framework */; };
+		C3C7831E174304C600A601A7 /* MinusSign.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C7831C174304C600A601A7 /* MinusSign.png */; };
+		C3C7831F174304C600A601A7 /* PlusSign.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C7831D174304C600A601A7 /* PlusSign.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C30A97ED1743231500C1AB50 /* RefreshSign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RefreshSign.png; sourceTree = "<group>"; };
 		C31B698F173B4C30004C2444 /* UIColor+RandColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandColor.h"; sourceTree = "<group>"; };
 		C31B6990173B4C30004C2444 /* UIColor+RandColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RandColor.m"; sourceTree = "<group>"; };
 		C334666B17000B1300093F4B /* Bouncy World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bouncy World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +75,8 @@
 		C33466AD17000C6000093F4B /* libChipmunk-iPhone.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libChipmunk-iPhone.a"; sourceTree = "<group>"; };
 		C33466AF1700117600093F4B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C380B8A717014E900080AA32 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C3C7831C174304C600A601A7 /* MinusSign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MinusSign.png; sourceTree = "<group>"; };
+		C3C7831D174304C600A601A7 /* PlusSign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlusSign.png; sourceTree = "<group>"; };
 		C3ED68F5170664140024EA15 /* Debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +146,7 @@
 		C334667517000B1300093F4B /* Bouncy World */ = {
 			isa = PBXGroup;
 			children = (
+				C3C7831B174304B400A601A7 /* Image Files */,
 				C31B6993173B51C5004C2444 /* Headers */,
 				C31B6992173B51B3004C2444 /* Categories */,
 				C334669217000C6000093F4B /* Chipmunk-iPhone */,
@@ -208,6 +215,16 @@
 			path = constraints;
 			sourceTree = "<group>";
 		};
+		C3C7831B174304B400A601A7 /* Image Files */ = {
+			isa = PBXGroup;
+			children = (
+				C30A97ED1743231500C1AB50 /* RefreshSign.png */,
+				C3C7831C174304C600A601A7 /* MinusSign.png */,
+				C3C7831D174304C600A601A7 /* PlusSign.png */,
+			);
+			name = "Image Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,6 +281,9 @@
 				C334668417000B1300093F4B /* Default@2x.png in Resources */,
 				C334668617000B1300093F4B /* Default-568h@2x.png in Resources */,
 				C334668C17000B1300093F4B /* ViewController.xib in Resources */,
+				C3C7831E174304C600A601A7 /* MinusSign.png in Resources */,
+				C3C7831F174304C600A601A7 /* PlusSign.png in Resources */,
+				C30A97EE1743231500C1AB50 /* RefreshSign.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +345,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -346,7 +366,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
