@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C30A97EE1743231500C1AB50 /* RefreshSign.png in Resources */ = {isa = PBXBuildFile; fileRef = C30A97ED1743231500C1AB50 /* RefreshSign.png */; };
 		C31B6991173B4C30004C2444 /* UIColor+RandColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C31B6990173B4C30004C2444 /* UIColor+RandColor.m */; };
 		C334667017000B1300093F4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C334666F17000B1300093F4B /* UIKit.framework */; };
 		C334667217000B1300093F4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C334667117000B1300093F4B /* Foundation.framework */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C30A97ED1743231500C1AB50 /* RefreshSign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RefreshSign.png; sourceTree = "<group>"; };
 		C31B698F173B4C30004C2444 /* UIColor+RandColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandColor.h"; sourceTree = "<group>"; };
 		C31B6990173B4C30004C2444 /* UIColor+RandColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RandColor.m"; sourceTree = "<group>"; };
 		C334666B17000B1300093F4B /* Bouncy World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bouncy World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +218,7 @@
 		C3C7831B174304B400A601A7 /* Image Files */ = {
 			isa = PBXGroup;
 			children = (
+				C30A97ED1743231500C1AB50 /* RefreshSign.png */,
 				C3C7831C174304C600A601A7 /* MinusSign.png */,
 				C3C7831D174304C600A601A7 /* PlusSign.png */,
 			);
@@ -280,6 +283,7 @@
 				C334668C17000B1300093F4B /* ViewController.xib in Resources */,
 				C3C7831E174304C600A601A7 /* MinusSign.png in Resources */,
 				C3C7831F174304C600A601A7 /* PlusSign.png in Resources */,
+				C30A97EE1743231500C1AB50 /* RefreshSign.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

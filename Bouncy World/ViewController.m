@@ -54,14 +54,22 @@ typedef struct LinearLine {
     [self.view addSubview:plus];
     [plus addTarget:self action:@selector(plus) forControlEvents:UIControlEventTouchUpInside];
 
-    minus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    minus = [UIButton buttonWithType:UIButtonTypeCustom];
     [minus setImage:[UIImage imageNamed:@"MinusSign.png"] forState:UIControlStateNormal];
     [minus setBackgroundColor:[UIColor blackColor]];
     [minus setFrame:CGRectMake( width/2-60, height-BUTTON_SPACE_OFFSET, 40, 40)];
     [self.view addSubview:minus];
     [minus addTarget:self action:@selector(minus) forControlEvents:UIControlEventTouchUpInside];
     
+    refresh = [UIButton buttonWithType:UIButtonTypeCustom];
+    [refresh setImage:[UIImage imageNamed:@"RefreshSign.png"] forState:UIControlStateNormal];
+    [refresh setBackgroundColor:[UIColor blackColor]];
+    [refresh setFrame:CGRectMake( width - 50, height-BUTTON_SPACE_OFFSET, 40, 40)];
+    [self.view addSubview:refresh];
+    [refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
+    
     removeBall = NO;
+    removeAllBalls = NO;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -145,6 +153,9 @@ typedef struct LinearLine {
     cpSpaceEachShape(space, &updateSpace, (__bridge void *) self);
     [CATransaction setDisableActions:NO];
     removeBall = NO;
+    if(removeAllBalls)
+        [self plus];
+    removeAllBalls = NO;
 }
 
 static void updateSpace (cpShape * shape, void *data) {
@@ -152,7 +163,7 @@ static void updateSpace (cpShape * shape, void *data) {
     if(!layer)
         return;
     
-    if(((__bridge ViewController *)data)->removeBall) {
+    if(((__bridge ViewController *)data)->removeBall || ((__bridge ViewController *)data)->removeAllBalls) {
         cpSpace * spacey =  cpShapeGetSpace(shape);
         cpSpaceAddPostStepCallback(spacey, (cpPostStepFunc)postStepRemove, shape, NULL);
         ((__bridge ViewController *)data)->removeBall = NO;
@@ -292,5 +303,9 @@ static void postStepRemove(cpSpace *space, cpShape *shape, void *data)
 
 -(void) minus {
     removeBall = YES;
+}
+
+-(void) refresh {
+    removeAllBalls = YES;
 }
 @end
