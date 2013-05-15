@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 #define GRAVITY 400.0f
-#define STEP_INTERVAL 1/100.0f
+#define STEP_INTERVAL 1/60.0f
 #define RADIUS 16.0f
 #define BLAST_RADIUS 20.0f       // possibly user-defined
 #define BUTTON_SPACE_OFFSET 62
@@ -39,20 +39,26 @@ typedef struct LinearLine {
     [self.view setBackgroundColor:[UIColor blackColor]];
     //Build the space for the balls to bounce in.
     [self buildSpace];
-    CGRect screenSize = [[UIScreen mainScreen] bounds];
-    [self dropBallAtPoint:CGPointMake(screenSize.size.width/2, screenSize.size.height/2)];
-    
-    
-    CALayer * layer = [CALayer layer];
-    layer.position  = CGPointMake(screenSize.size.width/2, 429);
-    layer.bounds = CGRectMake(screenSize.size.width/2, 415, 40, 40);
-    layer.backgroundColor = [UIColor redColor].CGColor;
-    [self.view.layer addSublayer:layer];
+    CGFloat width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+    CGFloat height = CGRectGetHeight([[UIScreen mainScreen] bounds]);
+    DLog(@"Height:%f", height);
+    [self dropBallAtPoint:CGPointMake(width/2, height/2)];
     
     //Set up the tapping for extra balls
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [self.view addGestureRecognizer:tapGesture];
     
+    plus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [plus setImage:[UIImage imageNamed:@"PlusSign.png"] forState:UIControlStateNormal];
+    [plus setBackgroundColor:[UIColor blackColor]];
+    [plus setFrame:CGRectMake( width/2+20, height-BUTTON_SPACE_OFFSET, 40, 40)];
+    [self.view addSubview:plus];
+
+    minus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [minus setImage:[UIImage imageNamed:@"MinusSign.png"] forState:UIControlStateNormal];
+    [minus setBackgroundColor:[UIColor blackColor]];
+    [minus setFrame:CGRectMake( width/2-60, height-BUTTON_SPACE_OFFSET, 40, 40)];
+    [self.view addSubview:minus];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -98,31 +104,32 @@ typedef struct LinearLine {
     space->gravity = cpv(0.0f, GRAVITY);
     acceleratedGravity = CGPointMake(0.0f, GRAVITY);
     
-    CGSize size = [[UIScreen mainScreen] bounds].size;
+    CGFloat width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+    CGFloat height = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
     cpBody *edge = cpBodyNewStatic();
     cpShape *shape = NULL;
     
     //Left Wall
-    shape = cpSegmentShapeNew(edge, cpv(0.0f, -10.0f), cpv(0.0f,size.height+10), 10.0f);
+    shape = cpSegmentShapeNew(edge, cpv(0.0f, -10.0f), cpv(0.0f,height+10), 10.0f);
     shape->u = 0.1f;
     shape->e = 0.7f;
     cpSpaceAddStaticShape(space, shape);
     
     //Top Wall
-    shape = cpSegmentShapeNew(edge, cpv(-10.0f, 0.0f), cpv(size.width+10,0.0f), 10.0f);
+    shape = cpSegmentShapeNew(edge, cpv(-10.0f, 0.0f), cpv(width+10,0.0f), 10.0f);
     shape->u = 0.1f;
     shape->e = 0.7f;
     cpSpaceAddStaticShape(space, shape);
     
     //Right Wall
-    shape = cpSegmentShapeNew(edge, cpv(size.width, -10.0f), cpv(size.width,size.height+10), 10.0f);
+    shape = cpSegmentShapeNew(edge, cpv(width, -10.0f), cpv(width, height+10), 10.0f);
     shape->u = 0.1f;
     shape->e = 0.7f;
     cpSpaceAddStaticShape(space, shape);
     
     //Bottom Wall
-    shape = cpSegmentShapeNew(edge, cpv(-10.0f, size.height-BUTTON_SPACE_OFFSET), cpv(size.width+10,size.height-BUTTON_SPACE_OFFSET), 10.0f);
+    shape = cpSegmentShapeNew(edge, cpv(-10.0f, height-BUTTON_SPACE_OFFSET), cpv(width+10, height-BUTTON_SPACE_OFFSET), 10.0f);
     shape->u = 0.1f;
     shape->e = 0.7f;
     cpSpaceAddStaticShape(space, shape);
@@ -131,7 +138,6 @@ typedef struct LinearLine {
 
 -(void) step {
     cpSpaceStep(space, STEP_INTERVAL);
-    
     [CATransaction setDisableActions:YES];
     cpSpaceEachShape(space, &updateSpace, (__bridge void *) self);
     [CATransaction setDisableActions:NO];

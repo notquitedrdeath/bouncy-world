@@ -21,6 +21,7 @@
     CGPoint swipeStart;
     CGPoint swipeEnd;
     cpVect diff;
+    UIButton * plus, * minus, * refresh;
 }
 
 @end
