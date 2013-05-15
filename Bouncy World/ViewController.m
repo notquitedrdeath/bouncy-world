@@ -41,24 +41,27 @@ typedef struct LinearLine {
     [self buildSpace];
     CGFloat width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     CGFloat height = CGRectGetHeight([[UIScreen mainScreen] bounds]);
-    DLog(@"Height:%f", height);
-    [self dropBallAtPoint:CGPointMake(width/2, height/2)];
+    [self plus];
     
     //Set up the tapping for extra balls
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [self.view addGestureRecognizer:tapGesture];
     
-    plus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    plus = [UIButton buttonWithType:UIButtonTypeCustom];
     [plus setImage:[UIImage imageNamed:@"PlusSign.png"] forState:UIControlStateNormal];
     [plus setBackgroundColor:[UIColor blackColor]];
     [plus setFrame:CGRectMake( width/2+20, height-BUTTON_SPACE_OFFSET, 40, 40)];
     [self.view addSubview:plus];
+    [plus addTarget:self action:@selector(plus) forControlEvents:UIControlEventTouchUpInside];
 
     minus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [minus setImage:[UIImage imageNamed:@"MinusSign.png"] forState:UIControlStateNormal];
     [minus setBackgroundColor:[UIColor blackColor]];
     [minus setFrame:CGRectMake( width/2-60, height-BUTTON_SPACE_OFFSET, 40, 40)];
     [self.view addSubview:minus];
+    [minus addTarget:self action:@selector(minus) forControlEvents:UIControlEventTouchUpInside];
+    
+    removeBall = NO;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -141,12 +144,23 @@ typedef struct LinearLine {
     [CATransaction setDisableActions:YES];
     cpSpaceEachShape(space, &updateSpace, (__bridge void *) self);
     [CATransaction setDisableActions:NO];
+    removeBall = NO;
 }
 
 static void updateSpace (cpShape * shape, void *data) {
     CALayer *layer = (__bridge CALayer *) shape->data;
     if(!layer)
         return;
+    
+    if(((__bridge ViewController *)data)->removeBall) {
+        cpSpace * spacey =  cpShapeGetSpace(shape);
+        cpSpaceAddPostStepCallback(spacey, (cpPostStepFunc)postStepRemove, shape, NULL);
+        ((__bridge ViewController *)data)->removeBall = NO;
+        [layer removeFromSuperlayer];
+        return;
+    }
+    
+    
     CGRect screenSize = [[UIScreen mainScreen] bounds];
     if(!CGRectContainsPoint(screenSize, shape->body->p)) {
         shape->body->p = cpv(screenSize.size.width/2, screenSize.size.height/2);
@@ -222,6 +236,15 @@ static CGFloat distanceFromPointToLine (CGPoint point, LinearLine line) {
     return distance;
 }
 
+static void postStepRemove(cpSpace *space, cpShape *shape, void *data)
+{
+    cpSpaceRemoveBody(space, shape->body);
+    cpBodyFree(shape->body);
+    
+    cpSpaceRemoveShape(space, shape);
+    cpShapeFree(shape);
+}
+
 #pragma mark - User Interaction
 
 - (void) tap: (UITapGestureRecognizer *)gr {
@@ -256,4 +279,18 @@ static CGFloat distanceFromPointToLine (CGPoint point, LinearLine line) {
     }
 }
 
+-(void) plus {
+    
+    CGFloat width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+    CGFloat height = CGRectGetHeight([[UIScreen mainScreen] bounds]);
+    
+    
+    CGFloat x = arc4random_uniform(width);
+    CGFloat y = arc4random_uniform(height-BUTTON_SPACE_OFFSET);
+    [self dropBallAtPoint:CGPointMake(x, y)];
+}
+
+-(void) minus {
+    removeBall = YES;
+}
 @end
