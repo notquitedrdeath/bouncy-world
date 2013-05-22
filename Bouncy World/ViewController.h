@@ -13,7 +13,7 @@
 #import "Debug.h"
 #import "UIColor+RandColor.h"
 
-@interface ViewController : UIViewController {
+@interface ViewController : UIViewController <UIGestureRecognizerDelegate> {
     cpSpace * space;
     CMMotionManager * motionManager;
     CGPoint acceleratedGravity;

@@ -45,6 +45,7 @@ typedef struct LinearLine {
     
     //Set up the tapping for extra balls
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture];
     
     plus = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -308,4 +309,15 @@ static void postStepRemove(cpSpace *space, cpShape *shape, void *data)
 -(void) refresh {
     removeAllBalls = YES;
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+
+    // if on button, ignore gesture
+    CGPoint point = [gestureRecognizer locationInView:self.view];
+    BOOL buttonPressed = CGRectContainsPoint(plus.layer.frame, point) ||
+			CGRectContainsPoint(minus.layer.frame, point) ||
+			CGRectContainsPoint(refresh.layer.frame, point);
+    return !buttonPressed;
+}
+
 @end
