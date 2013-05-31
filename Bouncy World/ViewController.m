@@ -5,6 +5,7 @@
 //  Created by Timothy Death on 25/03/13.
 //  Copyright (c) 2013 Timothy Death. All rights reserved.
 //
+// Plus and Refresh Icons created by 'Cheezen' (Found at http://www.iconarchive.com/artist/cheezen.html )
 
 #import "ViewController.h"
 
@@ -296,8 +297,8 @@ static void postStepRemove(cpSpace *space, cpShape *shape, void *data)
     CGFloat height = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
     
-    CGFloat x = arc4random_uniform(width);
-    CGFloat y = arc4random_uniform(height-BUTTON_SPACE_OFFSET);
+    CGFloat x = arc4random_uniform(width-(RADIUS*2)*2) + RADIUS*2;
+    CGFloat y = arc4random_uniform(height-BUTTON_SPACE_OFFSET-(RADIUS*2)*2) + RADIUS*2;
     [self dropBallAtPoint:CGPointMake(x, y)];
 }
 
