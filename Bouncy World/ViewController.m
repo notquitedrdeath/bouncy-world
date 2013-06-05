@@ -5,7 +5,7 @@
 //  Created by Timothy Death on 25/03/13.
 //  Copyright (c) 2013 Timothy Death. All rights reserved.
 //
-// Plus and Refresh Icons created by 'Cheezen' (Found at http://www.iconarchive.com/artist/cheezen.html )
+// Plus and Refresh Icons created by 'Everaldo Coelho' (Found at http://www.iconarchive.com/show/crystal-clear-icons-by-everaldo.1.html )
 
 #import "ViewController.h"
 
@@ -69,6 +69,8 @@ typedef struct LinearLine {
     [refresh setFrame:CGRectMake( width - 50, height-BUTTON_SPACE_OFFSET, 40, 40)];
     [self.view addSubview:refresh];
     [refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     
     removeBall = NO;
     removeAllBalls = NO;

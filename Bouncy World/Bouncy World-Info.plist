@@ -16,7 +16,13 @@
 			<array>
 				<string>AppIcon.png</string>
 				<string>AppIconRetina.png</string>
+				<string>App Pic-Small.png</string>
+				<string>App Pic-Large.png</string>
+				<string>App Pic-Large-iPad.png</string>
+				<string>App Pic-Small-iPad.png</string>
 			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -36,6 +42,8 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationExitsOnSuspend</key>
+	<true/>
+	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
